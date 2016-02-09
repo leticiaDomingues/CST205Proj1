@@ -1,3 +1,18 @@
+from javax.swing import JButton, JFrame
+
+frame = JFrame('Hello, Jython!',
+            defaultCloseOperation = JFrame.EXIT_ON_CLOSE,
+            size = (300, 300)
+        )
+
+def change_text(event):
+    print 'Clicked!'
+
+button = JButton('Click Me!', actionPerformed=change_text)
+frame.add(button)
+frame.visible = True
+
+
 path = "/Users/leticiadomingues/Documents/CSUMB/MultimediaDesignAndProgramming/CST205Proj1/Images/"
 pics = [makePicture(path+"1.png"),makePicture(path+"2.png"),makePicture(path+"3.png"),
         makePicture(path+"4.png"),makePicture(path+"5.png"),makePicture(path+"6.png"),
@@ -8,7 +23,6 @@ width = getWidth(pics[0])
 height = getHeight(pics[0])
 
 finalPic = makeEmptyPicture(width, height)
-
 
 for y in range(0,height):
   for x in range(0,width):
@@ -41,9 +55,11 @@ for y in range(0,height):
     redPixels = sorted(redPixels)
     greenPixels = sorted(greenPixels)
 
+    
     pixel = getPixel(finalPic,x,y)
     newColor = makeColor(redPixels[4], greenPixels[4], bluePixels[4])
     setColor(pixel,newColor)
+
 
 show(finalPic)
 repaint(finalPic)
