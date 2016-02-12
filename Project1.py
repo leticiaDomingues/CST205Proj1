@@ -1,6 +1,16 @@
+# Title: Project1.py
+# Abstract: Reads the path of a few images, than offers the possibility to remove the
+#           unwanted object from it using the median and the average method. Morover,
+#           offers the grayscale and the evil red filter.
+# PS: to successfully update the path, you need to choose a valid path.
+# Author: Leticia Domingues
+# GitHub Repo: https://github.com/leticiaDomingues/CST205Proj1
+# Group E -  Team 21
+
+
 #imports Java Swing and Awt, to make the GUI
-from javax.swing import JButton, JFrame, JPanel
-from java.awt import Component, GridLayout
+from javax.swing import JButton, JFrame, JPanel, JLabel
+from java.awt import Component, GridLayout, FlowLayout
 
 #creates a list of pictures, with the path to all 9 pictures
 path = "/Users/leticiadomingues/Documents/CSUMB/MultimediaDesignAndProgramming/CST205Proj1/Images/"
@@ -175,12 +185,21 @@ class EvilRedAction(awt.event.ActionListener):
       #show the final picture to the user    
       show(finalPic)
       repaint(finalPic)
-     
-#creates the main frame
-frame = JFrame("CST205 - Project 1", size = (500, 100))
 
-#creates the button panel, which will have the 3 buttons
-buttonPanel = JPanel(GridLayout(1,3))
+#action for the click in the "Change Path" button
+class ChangePathAction(awt.event.ActionListener):
+    def actionPerformed(self,event):
+      path = pickAFolder()
+      pics = [makePicture(path+"1.png"),makePicture(path+"2.png"),makePicture(path+"3.png"),
+              makePicture(path+"4.png"),makePicture(path+"5.png"),makePicture(path+"6.png"),
+              makePicture(path+"7.png"),makePicture(path+"8.png"),makePicture(path+"9.png")]
+      lblPath.setText("Path:  " + path)
+              
+#creates the main frame
+frame = JFrame("CST205 - Project 1", size = (800, 180))
+
+#creates the button panel, which will have the 4 buttons
+buttonPanel = JPanel(GridLayout(1,4))
 button1 = JButton('Median Method')
 button1.addActionListener(MedianAction())
 button2 = JButton('Average Method')
@@ -196,6 +215,19 @@ buttonPanel.add(button2)
 buttonPanel.add(button3)
 buttonPanel.add(button4)
 
+#creates the part where the user can change the images path
+lblPath = JLabel("Path:  " + path)
+btnChangePath = JButton('Change')
+btnChangePath.addActionListener(ChangePathAction())
+pathPanel = JPanel(FlowLayout())
+pathPanel.add(lblPath)
+pathPanel.add(btnChangePath)
+
+#creates the main panel, which will have the button panel and the path panel
+mainPanel = JPanel(GridLayout(2,1))
+mainPanel.add(pathPanel)
+mainPanel.add(buttonPanel)
+
 #add the panel to the main frame
-frame.add(buttonPanel)
+frame.add(mainPanel)
 frame.visible = True
